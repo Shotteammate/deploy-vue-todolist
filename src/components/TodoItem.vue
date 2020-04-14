@@ -1,8 +1,9 @@
 <template>
   <div class="todo-item" :class="{'is-complete':todo.completed}">
     <p>
-      <input type="checkbox" @change="markComplete" />
+      <input type="checkbox" @click="markComplete" />
       {{todo.title}}
+      <button class="del" @click="delTodo">x</button>
     </p>
   </div>
 </template>
@@ -18,6 +19,9 @@ export default {
   methods: {
     markComplete() {
       this.todo.completed = !this.todo.completed;
+    },
+    delTodo(){
+      this.$emit("del-todo", this.todo.id)
     }
   }
 };

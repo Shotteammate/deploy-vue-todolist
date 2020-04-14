@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-    <Todos :todos="todos" />
+    <Header />
+    <AddTodo @add-todo="addTodo" />
+    <Todos :todos="todos" @del-todo="delTodo" />
   </div>
 </template>
 
 <script>
 import Todos from "./components/Todos";
+import Header from "./components/layout/Header";
+import AddTodo from "./components/AddTodo";
 
 export default {
   name: "App",
   components: {
-    Todos
+    Todos,
+    Header,
+    AddTodo
   },
   data() {
     return {
@@ -32,6 +38,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    delTodo(id) {
+      this.todos = this.todos.filter(todo => todo.id !== id);
+    },
+    addTodo(newTodo) {
+      this.todos.push(newTodo);
+    }
   }
 };
 </script>
@@ -45,5 +59,16 @@ export default {
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+}
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #666;
 }
 </style>
