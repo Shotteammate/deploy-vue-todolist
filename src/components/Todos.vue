@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="todo in todos" :key="todo.id">
-      <TodoItem :todo="todo" @del-todo="delTodo"/>
+      <TodoItem :todo="todo" @del-todo="delTodo" />
     </div>
   </div>
 </template>
@@ -18,9 +18,9 @@ export default {
       type: Array
     }
   },
-  methods:{
-    delTodo(id){
-      this.$emit("del-todo", id)
+  methods: {
+    delTodo(id) {
+      this.$emit("del-todo", id);
     }
   }
 };

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {eventBus} from '../main'
+
 export default {
   name: "AddTodo",
   data() {
@@ -23,6 +25,7 @@ export default {
       };
 
       this.$emit("add-todo", newTodo);
+      eventBus.$emit('addItemEventBus', true)
       this.title = "";
     }
   }

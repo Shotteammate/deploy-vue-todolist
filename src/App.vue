@@ -6,7 +6,10 @@
         <router-link to="/about">About</router-link>
       </div>
     </Header>
-    <router-view />
+    <!-- name attr is useful, see css classes -->
+    <transition appear name="slide-fade" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -40,5 +43,17 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+/* <transition> */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>

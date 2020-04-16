@@ -1,14 +1,24 @@
 <template>
-  <div class="todo-item" :class="{'is-complete':todo.completed}">
-    <p>
-      <input type="checkbox" @click="markComplete" />
-      {{todo.title}}
-      <button class="del" @click="delTodo">x</button>
-    </p>
+  <div>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated bounce"
+      leave-active-class="animated slideOutRight"
+    >
+      <div v-if="show" class="todo-item" :class="{'is-complete':todo.completed}">
+        <p>
+          <input type="checkbox" @click="markComplete" />
+          {{todo.title}}
+          <button class="del" @click="delTodo">x</button>
+        </p>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import {eventBus} from '../main'
+
 export default {
   name: "TodoItem",
   props: {
@@ -16,13 +26,22 @@ export default {
       type: Object
     }
   },
+  data() {
+    return { show: true };
+  },
   methods: {
     markComplete() {
       this.todo.completed = !this.todo.completed;
     },
-    delTodo(){
-      this.$emit("del-todo", this.todo.id)
+    delTodo() {
+      this.$emit("del-todo", this.todo.id);
+      this.show = !this.show;
     }
+  },
+  created() {
+    eventBus.$on('addItemEventBus', (data)=>{
+      console.log('addItemEventBus: ', data)
+    })
   }
 };
 </script>
